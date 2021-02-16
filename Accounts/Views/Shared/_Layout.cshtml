@@ -1,0 +1,46 @@
+﻿@using Newtonsoft.Json
+@using Web.Search.Helpers
+@model Web.ViewModels.LayoutViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        Accounts
+        @if (!string.IsNullOrEmpty(ViewBag.Title))
+        {
+            @: | @ViewBag.Title
+        }
+    </title>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
+
+    @RenderSection("styles", required: false)
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.2.x/dist/vuetify.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+
+    <script>
+        var model = @Html.Raw(JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    }));
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

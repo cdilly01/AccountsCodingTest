@@ -1,0 +1,217 @@
+﻿@model Web.ViewModels.AccountsViewModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<v-container class="grey lighten-5">
+    <v-expansion-panels multiple focusable popout>
+        <v-expansion-panel open>
+            <v-expansion-panel-header><b>Accounts Coding Test - Frontier Service API Results</b></v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>Active Accounts</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-expansion-panels>
+                            <v-expansion-panel v-for="(item, i) in model.ActiveAccounts"
+                                               :key="i">
+                                <v-expansion-panel-header>{{item.DisplayName}}</v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <br />
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.FirstName"
+                                                          name="First Name"
+                                                          label="First Name">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.LastName"
+                                                          name="Last Name"
+                                                          label="Last Name">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.PhoneNumber"
+                                                          name="Phone Number"
+                                                          label="Phone Number"
+                                                          v-mask="'(###) ###-####'">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.AmountDue"
+                                                          name="Amount Due"
+                                                          label="Amount Due"
+                                                          v-mask="'$###.##'">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            @*TODO: determine why statusList is not populating on the view*@
+                                            <v-select v-model="item.Status"
+                                                      :items="statusList"
+                                                      chips
+                                                      item-text="text"
+                                                      item-value="value"
+                                                      deletable-chips
+                                                      name="Select">
+                                            </v-select>
+                                        </v-col>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <datemenupicker v-model="item.PaymentDueDate"
+                                                            label="Payment Due Date">
+                                            </datemenupicker>
+                                        </v-col>
+                                    </v-row>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>Inactive Accounts</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-expansion-panels>
+                            <v-expansion-panel v-for="(item, i) in model.InactiveAccounts"
+                                               :key="i">
+                                <v-expansion-panel-header>{{item.DisplayName}}</v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <br />
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.FirstName"
+                                                          name="First Name"
+                                                          label="First Name">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.LastName"
+                                                          name="Last Name"
+                                                          label="Last Name">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.PhoneNumber"
+                                                          name="Phone Number"
+                                                          label="Phone Number"
+                                                          v-mask="'(###) ###-####'">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.AmountDue"
+                                                          name="Amount Due"
+                                                          label="Amount Due"
+                                                          v-mask="'$###.##'">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            @*TODO: determine why statusList is not populating on the view*@
+                                            <v-select v-model="item.Status"
+                                                      :items="statusList"
+                                                      chips
+                                                      item-text="text"
+                                                      item-value="value"
+                                                      deletable-chips
+                                                      name="Select">
+                                            </v-select>
+                                        </v-col>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <datemenupicker v-model="item.PaymentDueDate"
+                                                            label="Payment Due Date" 
+                                                            v-if="item.PaymentDueDate != null">
+                                            </datemenupicker>
+                                        </v-col>
+                                    </v-row>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>Overdue Accounts</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-expansion-panels>
+                            <v-expansion-panel v-for="(item, i) in model.OverdueAccounts"
+                                               :key="i">
+                                <v-expansion-panel-header>{{item.DisplayName}}</v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <br />
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.FirstName"
+                                                          name="First Name"
+                                                          label="First Name">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.LastName"
+                                                          name="Last Name"
+                                                          label="Last Name">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <v-text-field v-model="item.PhoneNumber"
+                                                          name="Phone Number"
+                                                          label="Phone Number"
+                                                          v-mask="'(###) ###-####'">
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col sm="3" offset-sm="1" md="5" offset-md="1" xs="12">
+                                            <v-text-field v-model="item.AmountDue"
+                                                          name="Amount Due"
+                                                          label="Amount Due"
+                                                          v-mask="'$###.##'">
+                                            </v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row no-gutters>
+                                        <v-col sm="3" md="5" xs="12">
+                                            @*TODO: determine why statusList is not populating on the view*@
+                                            <v-select v-model="item.Status"
+                                                      :items="statusList"
+                                                      chips
+                                                      item-text="text"
+                                                      item-value="value"
+                                                      deletable-chips
+                                                      name="Select">
+                                            </v-select>
+                                        </v-col>
+                                        <v-col sm="3" md="5" xs="12">
+                                            <datemenupicker v-model="item.PaymentDueDate"
+                                                            label="Payment Due Date">
+                                            </datemenupicker>
+                                        </v-col>
+                                    </v-row>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+
+    @section styles {
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
+    }
+
+    @section scripts {
+        <script src="~/lib/moment.js"></script>
+        <script src="~/lib/vue/vee-validate.js"></script>
+        <script src="~/lib/vue/vue-the-mask.js"></script>
+        <script src="~/js/app/accounts.js"></script>
+        <script>
+            var vueModel = accountsDetail(model);
+            var model = new Vue(vueModel);
+        </script>
+    }
+
