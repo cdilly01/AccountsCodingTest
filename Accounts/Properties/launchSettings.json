@@ -8,15 +8,14 @@
     },
     "iisExpress": {
       "applicationUrl": "http://localhost:49296",
-      "sslPort": 44342
+      "sslPort": 0
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:49296",
+      "commandName": "IIS",
+      "launchUrl": "http://localhost:49296/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -31,6 +30,7 @@
     },
     "IIS": {
       "commandName": "IIS",
+      "launchUrl": "http://localhost/Accounts/Home",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

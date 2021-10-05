@@ -22,6 +22,12 @@ namespace Accounts.Controllers
             FrontierService = frontierService;
         }
 
+        /// <summary>
+        /// Index page to view results
+        /// sample url: http://localhost/Accounts/home/index/0
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("Index/{id:int}")]
         public async Task<IActionResult> Index(int id)
         {
